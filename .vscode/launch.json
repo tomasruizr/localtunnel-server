@@ -20,7 +20,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "args": ["--port", "2222"/* , "--domain", "empresa1.com" */],
+      "args": ["--port", "3000"/* , "--domain", "empresa1.com" */],
       "runtimeArgs": ["-r", "esm"],
       "program": "${workspaceFolder}/bin/server",
       "console": "integratedTerminal"
