@@ -43,7 +43,6 @@ if (argv.help) {
     optimist.showHelp();
     process.exit();
 }
-
 const server = CreateServer({
     max_tcp_sockets: argv['max-sockets'],
     secure: argv.secure,
@@ -52,8 +51,9 @@ const server = CreateServer({
     maxPort: argv['max-port'],
 });
 
-server.listen(argv.port, argv.address, () => {
+server.listen(argv.port, () => {
     debug('server listening on port: %d', server.address().port);
+    debug('server listening on address: %s', server.address().address);
 });
 
 process.on('SIGINT', () => {

@@ -120,14 +120,19 @@ export default function(opt) {
     server.on('request', (req, res) => {
         // without a hostname, we won't know who the request is for
         const hostname = req.headers.host;
+        const tidRegex = /(\/tid_(.+?))(\/|$|\?)/;
         if (!hostname) {
             res.statusCode = 400;
             res.end('Host header is required');
             return;
         }
-
-        let clientId = GetClientIdFromHostname(hostname);
-        clientId = clientId === '' ? hostname.split('.')[0] : clientId;
+        let clientId, routeClientId;
+        if (routeClientId = tidRegex.exec(req.url)){
+            clientId = routeClientId[2];
+            req.url = req.url.replace(routeClientId[1], '');
+        } else
+            clientId = GetClientIdFromHostname(hostname);
+        console.log('**************************************************************', hostname, clientId)
         if (!clientId) {
             appCallback(req, res);
             return;
